@@ -1,0 +1,163 @@
+meta:
+  version: "0.1.0"
+  last_modified: "01-2025"
+
+locations:
+  madrid:
+    en-US:
+      city: Madrid
+      country: Spain
+    es-ES:
+      city: Madrid
+      country: España
+
+basics:
+  name: Jean
+  surname: Doe
+  email: jeandoe@example.com
+  label: 
+    en-US: Software Developer
+    es-ES: Desarrollador de Software
+  phone: "+34 000 00 00 00"
+  address: "A Street, 00, 8B"
+  location: "madrid"
+  zipcode: "28000"
+  profiles:
+    - network: "LinkedIn"
+      username: "thejeandoe"
+      url: "https://www.linkedin.com/in/thejeandoe/"
+    - network: "GitHub"
+      username: "thejeandoe"
+      url: "https://github.com/thejeandoe"
+
+education:
+  - institution: 
+      en-US: "Very Cool University"
+      es-ES: "Universidad ReChula"
+    location:
+      "madrid"
+    title: 
+      en-US: "Degree in Degreedology"
+      es-ES: "Grado en Gradología"
+    level: 
+      en-US: Bachelors
+      es-ES: Grado Universitario
+    start_date: "01-2025"
+    end_date: "01-2025"
+    highlights:
+      en-US:
+        - "Very cool"
+        - "Lot of degrees"
+      es-ES:
+        - "Bastate chulo"
+        - "Mucha educación"
+    tags: ["grados", "guay"]
+
+work_experience:
+  - organization: ACME
+    organization_url: "https://acme.es/"
+    position: Bird Hunter
+    job_type: freelancer
+    location:
+      city: Madrid
+      country: Spain
+    start_date: "01-2025"
+    end_date: "now"
+    responsabilities:
+      - "Helping catch a damn fast bird"
+      - "Failing"
+
+  - organization: Institute of CV-nomics
+    organization_url: "https://www.cvnomics.es/"
+    position: Curriculum Maker
+    job_type: intern
+    location:
+      city: Madrid
+      country: Spain
+    start_date: "01-2024"
+    end_date: "12-2024"
+    responsabilities:
+      - "Made CVs"
+      - "Made more CVs"
+
+volunteer_work:
+  - organization: Mistery Charity
+    organization_url: https://www.misterycharity.org
+    title: Organizer of Charitable Donations
+    start_date: "01-2025"
+    end_date: "01-2025"
+    location:
+      city: Madrid
+      contry: Spain
+    responsabilities:
+      - "Organized money"
+      - "Helped people"
+  
+
+skills:
+  - name: Programming Languajes
+    items:
+      - name: Python
+        proficiency: Expert
+      - name: Java
+        proficiency: Intermediate
+      - name: Rust
+        proficiency: Intermediate
+      - name: C
+        proficiency: Novice
+      - name: JavaScript
+        proficiency: Novice
+
+certificates:
+  - name: Certificate in advanced Yap-ologics
+    issuer: School of Yapping
+    date: "01-2025"
+    url: https://www.yapschool.edu/cert/id/20250101120308
+
+publications:
+  - name: Thesis on making this thesis
+    description: A paper about the stuggle of making this paper.
+    url: https://www.papers.com/this-paper
+    release_date: "01-2024"
+    publisher: Monopoly Ink
+    summary: A long detailed explanation of how this paper was made.
+
+asociations:
+  - name: Asocitation of Asociation Anthusiasts
+    role: Member
+    joined: "01-2025"
+    summary: We have meetings to talk about what being in an asociation feels like.
+
+awards:
+  - title: Most time wasted Award
+    date: "01-2025"
+    awarder: The Wasted Time Org
+
+languajes: 
+  - languaje: Spanish
+    fluency: Native
+  - languaje: English
+    fluency: C2
+  - languaje: Toki Pona
+    fluency: Basic
+
+interests:
+  - name: Fishing
+    keywords: milf, man-i-love-fish
+  - name: Terrariums
+    keywords: jars, plants
+
+projects:
+  - name: rsume
+    description: A tool for creating resumes in standard formats like JSON, YAML or TOML.
+    url: https://github.com/aafrecct/rsume
+    tools:
+      - Rust
+      - Json Schema
+
+references:
+  - name: Mr. Very Real Man
+    description: Worked for him back in '86, very real man he is.
+    contact: veryreal@email.com
+    quote: Hire this woman inmediately, I don't wanna deal with her anymore.
+    url: https://mrreal.site

@@ -1,0 +1,202 @@
+:root {
+  --highlight-color: #157F52;
+}
+
+html,
+body {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+
+  margin: 0;
+  padding: 0.6rem;
+  left: 0;
+  top: 0;
+
+  font-size: 12pt;
+}
+
+* {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  display: block;
+  margin: 0;
+  font-weight: 450;
+}
+
+h1 {
+  font-size: 20pt;
+  line-height: 120%;
+}
+
+h2 {
+  font-size: 18pt;
+  line-height: 100%;
+  margin-bottom: .4rem;
+}
+
+h3 {
+  font-size: 16pt;
+}
+
+h4 {
+  font-size: 15pt;
+}
+
+a {
+  text-decoration: none;
+  color: var(--highlight-color)
+}
+
+ul {
+  margin: 0;
+  margin-top: .2rem;
+  padding-left: 1rem;
+  line-height: 1.1rem;
+}
+
+.category-outter {
+  display: block;
+  break-inside: avoid;
+
+  margin-bottom: .8rem;
+}
+
+.category-inner {
+  display: block;
+}
+
+#header-outter {
+
+  #header-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: .4rem;
+
+    #contact-details {
+      margin-top: .5rem;
+      text-align: right;
+
+      >* {
+        display: block;
+      }
+    }
+
+    .language {
+      display: inline-block;
+
+      .language-name {
+        font-weight: 450;
+      }
+
+      &:not(:last-of-type)::after {
+        content: "|";
+      }
+    }
+  }
+
+  #summary {
+    line-height: 1.1rem;
+  }
+}
+
+#work-experience {
+  .category-inner {
+    .work-experience-item {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1rem;
+
+      .job-timeframe {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        text-align: right;
+        font-weight: 450;
+        margin-right: 1rem;
+        min-width: 5rem;
+        width: 5rem;
+      }
+
+      .job-details {
+        display: block;
+        border-left: 2px solid black;
+        padding-left: 1rem;
+
+        .job-title {
+          font-size: 14pt;
+          font-weight: 450;
+        }
+      }
+    }
+  }
+}
+
+#projects {
+  .category-inner {
+    margin-left: 1rem;
+
+    .project-title {
+      .project-name {
+        font-size: 14pt;
+        font-weight: 450;
+      }
+    }
+
+    .project-details {
+      margin-left: 1rem;
+    }
+
+  }
+}
+
+#education {
+  .category-inner {
+    margin-left: 1rem;
+  }
+
+  .education-item {
+
+    .education-title {
+      display: block;
+      font-size: 14pt;
+      font-weight: 450;
+    }
+
+    .education-details {
+      margin-left: .05rem;
+
+      .education-highlights {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+#skills {
+  .category-inner {
+    margin-left: 1rem;
+  }
+
+  .skill {
+    .skill-name {
+      font-weight: 450;
+    }
+
+    >.skill-item {
+      font-style: italic;
+
+      &:not(:last-of-type)::after {
+        content: ", ";
+      }
+    }
+  }
+}

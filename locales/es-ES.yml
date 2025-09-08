@@ -1,0 +1,56 @@
+basics: Información Básica
+basics.name: Nombre
+basics.surname: Apellidos
+basics.label: Título Profesional
+basics.email: Email
+basics.phone: Número de Teléfono
+basics.address: Dirección
+basics.zipcode: Código Postal
+basics.summary: Resumen
+basics.image: Imágen
+basics.profiles: Perfiles
+ 
+education: Educación
+
+work_experience: Experiencia
+
+volunteer_work: Voluntariado
+
+asociations: Asociaciones
+
+awards: Premios
+
+certificates: Certificados
+
+pubications: Publicaciones
+
+skills: Habilidades
+
+languages: Lenguajes
+
+interests: Intereses
+
+projects: Proyectos
+
+references: Referencias
+
+# Job Types
+full_time: Jornada Completa
+part_time: Media Jornada
+intern: Becario
+contractor: Contratista
+freelancer: Autónomo
+
+junior: Junior
+mid_level: Mid Level
+senior: Senior
+
+aware: Conocedor
+novice: Principiante
+intermediate: Intermedio
+advanced: Avanzado
+expert: Experto
+
+# Misc Words
+graduated: Graduado 
+at: para

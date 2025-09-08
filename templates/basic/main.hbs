@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{basics.name}}'s CV</title>
+  <script>
+    function ready() {
+        let marker = document.createElement("div");
+        marker.hidden = "hidden";
+        marker.id = "readyMarker";
+        document.getRootNode()["body"].appendChild(marker);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" onload="ready()">
+  <style>
+    {{ > styles }}
+  </style>
+</head>
+
+<body>
+  <div id="header-outter" class="category-outter">
+
+    <div id="header-top" class="category-inner">
+
+      <div id="title">
+        <h1 id="full-name">{{basics.name}} {{basics.surname}}</h1>
+        <h2 id="label">{{basics.label}}</h2>
+        <span id="email">{{basics.email}}</span> | 
+        <span id="phone">{{basics.phone}}</span>
+        <br>
+
+        {{#if languages}}
+          {{#each languages}}
+          <div class="language">
+            <span class="language-fluency">{{fluency}}</span>
+            <span class="language-name">{{language}}</span>
+          </div>
+          {{/each}}
+        {{/if}}
+      </div> 
+
+      <div id="contact-details">
+        <span id="address">
+          {{basics.location.city}},
+          {{basics.location.country}}
+        </span>
+
+        {{#each basics.profiles}}
+        <div class="profile">
+          <span class="profile-network">{{network}}: </span>
+          <a href="{{url}}" class="profile-username-link">
+            <span class="profile-username">{{username}}</span>
+          </a>
+        </div>
+        {{/each}}
+      </div>
+
+    </div>
+
+  {{#if basics.summary}}
+  <span id="summary">
+    {{ basics.summary }}
+  </span>
+  {{/if}}
+  
+  </div>
+
+
+  {{#if work_experience}}
+  <div id="work-experience" class="category-outter">
+    <h2>{{localize "work_experience"}}</h2>
+
+    <div  class="category-inner">
+      {{#each work_experience}}
+      <div class="work-experience-item">
+        <div class="job-timeframe">
+          <span class="timeframe-end">{{end_date}}</span>
+          <span class="timeframe-start">{{start_date}}</span>
+        </div>
+
+        <div class="job-details">
+          <span class="job-title">
+            <span class="job-position">{{position}}</span>
+            {{localize "at"}}
+            <a href="{{organization_url}}" class="job-organization">
+              {{organization}}
+            </a>
+            <span class="job-type"> ({{localize job_type}})</span>
+          </span>
+          <br>
+          {{#if highlights}}
+          <ul class="job-highlights">
+            {{#each highlights}}
+            <li>{{this}}</li>
+            {{/each}}
+          </ul>
+          {{/if}}
+
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
+
+  {{#if projects}}
+  <div id="projects" class="category-outter">
+    <h2>{{localize "projects"}}</h2>
+
+    <div class="category-inner">
+      {{#each projects}}
+      <div class="project">
+        <div class="project-title">
+          <span class="project-name">{{name}}</span> | 
+          <a href="{{url}}" class="project-url">{{url}}</a>
+        </div>
+        <div class="project-details">
+          <span class="project-description">{{description}}</span>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+  </div>
+  {{/if}}
+
+  {{#if education}}
+  <div id="education" class="category-outter">
+    <h2>{{localize "education"}}</h2>
+    <div class="category-inner">
+      {{#each education}}
+      <div class="education-item">
+        <span class="education-title">{{title}}</span>
+        <div class="education-details">
+          <span class="education-institution">{{institution}}</span>
+          <span> | </span>
+          <span class="education-dates">{{localize "graduated"}} {{end_date}}</span>
+          {{#if highlights}}
+          <ul class="education-highlights">
+            {{#each highlights}}
+            <li>{{this}}</li>
+            {{/each}}
+          </ul>
+          {{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if skills}}
+  <div id="skills" class="category-outter">
+    <h2>{{localize "skills"}}</h2>
+
+    <div class="category-inner">
+
+      {{#each skills}}
+      <div class="skill">
+        <span class="skill-name">{{name}} | </span>
+        {{#each items}}
+          <span class="skill-item">{{name}}</span>
+        {{/each}}
+      </div>
+      {{/each}} 
+
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if volunteer_work}}
+  <div id="volunteer-work" class="category-outter">
+    <h2>{{localize "volunteer_work"}}</h2>
+  </div>
+  {{/if}}
+
+  {{#if asociations}}
+  <div id="asociations" class="category-outter">
+    <h2>{{localize "asociations"}}</h2>
+  </div>
+  {{/if}}
+
+  {{#if awards}}
+  <div id="awards" class="category-outter">
+    <h2>{{localize "awards"}}</h2>
+  </div>
+  {{/if}}
+
+  {{#if certificates}}
+  <div id="certificates" class="category-outter">
+    <h2>{{localize "certificates"}}</h2>
+  </div>
+  {{/if}}
+
+  {{#if publications}}
+  <div id="Publications" class="category-outter">
+    <h2>{{localize "publications"}}</h2>
+  </div>
+  {{/if}}
+
+  {{#if interests}}
+  <div id="interests" class="category-outter">
+    <h2>{{localize "interests"}}</h2>
+  </div>
+  {{/if}}
+
+  {{#if references}}
+  <div id="References" class="category-outter">
+    <h2>{{localize "references"}}</h2>
+  </div>
+  {{/if}}
+
+</body>
+
+</html>

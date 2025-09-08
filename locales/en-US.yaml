@@ -1,0 +1,55 @@
+basics: Basics
+basics.name: Name
+basics.surname: Surname
+basics.label: Label
+basics.email: Email
+basics.phone: Phone Number
+basics.address: Address
+basics.zipcode: Zip Code
+basics.summary: Summary
+basics.image: Image
+basics.profiles: Profiles
+ 
+education: Education
+
+work_experience: Work Experience
+
+volunteer_work: Volunteer Work
+
+asociations: Asociations
+
+awards: Awards
+
+certificates: Certificates
+
+pubications: Publications
+
+skills: Skills
+
+languages: Languages
+
+interests: Interests
+
+projects: Projects
+
+references: References
+
+full_time: Full Time
+part_time: Part Time
+intern: Intern
+contractor: Contractor
+freelancer: Freelancer
+
+junior: Junior
+mid_level: Mid Level
+senior: Senior
+
+aware: Aware
+novice: Novice
+intermediate: Intermediate
+advanced: Advanced
+expert: Expert 
+
+
+graduated: Graduated
+at: at
