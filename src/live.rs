@@ -1,8 +1,10 @@
+use crate::config::OutputConfig;
 use crate::models::Resume;
 use crate::templates;
 use crate::templates::CVTemplateManager;
 use crate::validate;
 
+use color_eyre::eyre::eyre;
 use color_eyre::eyre::Result;
 use color_eyre::owo_colors::OwoColorize;
 use colored::Colorize;
@@ -18,7 +20,13 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tide::http::mime;
 
-pub fn live(file_in: &Path, template_path: &Path, locale: &str, tags: &[&str]) {
+pub fn live(
+    file_in: &Path,
+    template_path: &Path,
+    locale: &str,
+    tags: &[&str],
+    config: OutputConfig,
+) {
     let mut logger = colog::default_builder();
     logger.init();
 
@@ -34,6 +42,7 @@ pub fn live(file_in: &Path, template_path: &Path, locale: &str, tags: &[&str]) {
                 rendered_resume.clone(),
                 locale,
                 tags,
+                config,
             ))
             .detach();
 
@@ -66,6 +75,7 @@ async fn async_watch<P: AsRef<Path>>(
     rendered_resume: Arc<Mutex<String>>,
     locale: &str,
     tags: &[&str],
+    config: OutputConfig,
 ) -> Result<()> {
     let absolute_resume_path = canonicalize(resume_path).await?;
     let absolute_template_path = canonicalize(template_path).await?;
@@ -75,9 +85,13 @@ async fn async_watch<P: AsRef<Path>>(
         .inspect_err(|e| error!("{}", e))?;
 
     println!("{}", "Loading templates...".italic().blue());
-    let mut template_manager =
-        templates::CVTemplateManager::from_template_path(&absolute_template_path)
-            .inspect_err(|e| error!("{}", e,))?;
+    let mut template_manager = templates::CVTemplateManager::from_template_name_or_path(
+        absolute_template_path
+            .to_str()
+            .ok_or(eyre!("Error converting path back to string"))?,
+        config,
+    )
+    .inspect_err(|e| error!("{}", e,))?;
 
     println!("{}", "Rendering resume...".italic().blue());
     {

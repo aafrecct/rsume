@@ -1,3 +1,4 @@
+use crate::config;
 use crate::generate;
 use crate::live;
 use crate::models;
@@ -68,6 +69,7 @@ fn schema() {
 }
 
 fn validate(args: ValidateArgs) {
+    let _ = config::get_icon_font();
     let result = validate::parse_source_resume(args.file_in);
     match result {
         Ok(_) => {
@@ -88,10 +90,15 @@ fn generate(args: GenerateArgs) {
     let locale = args.locale.unwrap_or("en-US".to_string());
     rust_i18n::set_locale(locale.as_str());
     let tags = tags_to_ref(&args.tags);
+
+    let config = config::load_config().unwrap_or_else(|e| {
+        eprintln!("{e}");
+        panic!("Aborting because of missing config")
+    });
     let resume = validate::parse_and_resolve_resume(args.file_in, &locale, tags.as_slice());
 
-    let result =
-        resume.map(|resume| generate::generate(resume, &args.template, &filename_out, format));
+    let result = resume
+        .map(|resume| generate::generate(resume, &args.template, &filename_out, format, config));
 
     match result {
         Ok(_) => println!("Resume generated at {}", &filename_out.display()),
@@ -106,11 +113,17 @@ fn live(args: LiveArgs) {
     let locale = args.locale.unwrap_or("en-US".to_string());
     rust_i18n::set_locale(locale.as_str());
 
+    let config = config::load_config().unwrap_or_else(|e| {
+        eprintln!("{e}");
+        panic!("Aborting because of missing config")
+    });
+
     live::live(
         args.file_in.as_path(),
         args.template.as_path(),
         &locale,
         tags.as_slice(),
+        config,
     );
 }
 

@@ -1,9 +1,9 @@
 pub mod cli;
+mod config;
 pub mod generate;
-pub mod l10n;
 pub mod live;
 pub mod models;
-pub mod templates;
+mod templates;
 pub mod validate;
 
 rust_i18n::i18n!("locales");

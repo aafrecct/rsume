@@ -1,6 +1,6 @@
 use std::fs;
 
-use crate::{models, templates::CVTemplateManager};
+use crate::{config::OutputConfig, models, templates::CVTemplateManager};
 use color_eyre::{eyre::eyre, Result};
 use headless_chrome::{types::PrintToPdfOptions, Browser};
 use std::io::Write;
@@ -41,11 +41,12 @@ pub fn generate<P: AsRef<std::path::Path>>(
     template: P,
     filename_out: P,
     format: ExportFormat,
+    config: OutputConfig,
 ) -> Result<()> {
     match format {
-        ExportFormat::Html => fs::write(filename_out, render_to_html(resume, template)?)?,
+        ExportFormat::Html => fs::write(filename_out, render_to_html(resume, template, config)?)?,
         ExportFormat::Json => fs::write(filename_out, serde_json::to_string_pretty(&resume)?)?,
-        ExportFormat::Pdf => generate_to_pdf(resume, template, filename_out)?,
+        ExportFormat::Pdf => generate_to_pdf(resume, template, filename_out, config)?,
     };
     Ok(())
 }
@@ -53,17 +54,26 @@ pub fn generate<P: AsRef<std::path::Path>>(
 pub fn render_to_html<P: AsRef<std::path::Path>>(
     resume: models::Resume,
     template: P,
+    config: OutputConfig,
 ) -> Result<String> {
-    let template_manager = CVTemplateManager::from_template_path(template.as_ref())?;
-    template_manager.render(resume)
+    let template_manager = CVTemplateManager::from_template_name_or_path(
+        template
+            .as_ref()
+            .to_str()
+            .ok_or(eyre!("Error converting path to str"))?,
+        config,
+    )?;
+
+    template_manager.render(&resume)
 }
 
 pub fn generate_to_pdf<P: AsRef<std::path::Path>>(
     resume: models::Resume,
     template: P,
     filename_out: P,
+    config: OutputConfig,
 ) -> Result<()> {
-    let html = render_to_html(resume, template)?;
+    let html = render_to_html(resume, template, config)?;
     let browser = Browser::default().map_err(|e| eyre!(Box::new(e)))?;
     let tab = browser.new_tab().map_err(|e| eyre!(Box::new(e)))?;
     let mut tempfile = NamedTempFile::with_suffix(".html")?;

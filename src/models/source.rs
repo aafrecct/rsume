@@ -4,9 +4,8 @@ use serde::Deserialize;
 use std::collections::HashMap;
 use url::Url;
 
-use crate::models::core::{
-    FlexibleDate, JobExperience, JobType, Location, Metadata, Profile, SkillProficiency,
-};
+use crate::models::core::{JobExperience, JobType, Location, Metadata, Profile, SkillProficiency};
+use crate::models::flexible_date::FlexibleDate;
 
 #[derive(Deserialize, JsonSchema, Debug)]
 pub struct SourceResume {

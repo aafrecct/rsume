@@ -1,12 +1,9 @@
-use std::cmp::{Ordering, Reverse};
+use std::cmp::Reverse;
 
+use crate::models::flexible_date::FlexibleDate;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use url::Url;
-
-static MONTHS: [&str; 12] = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
 
 #[derive(Serialize, Deserialize, JsonSchema, Debug)]
 pub struct Resume {
@@ -220,130 +217,4 @@ pub struct Metadata {
     pub version: String,
     pub last_modified: FlexibleDate,
     pub canonical: Option<Url>,
-}
-
-#[derive(Clone, Serialize, Deserialize, PartialEq, Eq, Debug)]
-#[serde(try_from = "String", into = "String")]
-pub enum FlexibleDate {
-    Now,
-    Year(u16),
-    Month(u16, u8),
-    Day(u16, u8, u8),
-}
-
-impl FlexibleDate {
-    fn as_tuple(&self) -> (bool, u16, u8, u8) {
-        match self {
-            FlexibleDate::Now => (true, 0, 0, 0),
-            FlexibleDate::Year(y) => (false, *y, 0, 0),
-            FlexibleDate::Month(y, m) => (false, *y, *m, 0),
-            FlexibleDate::Day(y, m, d) => (false, *y, *m, *d),
-        }
-    }
-
-    fn innner_cmp(&self, other: &Self) -> Ordering {
-        use FlexibleDate as D;
-
-        match (self, other) {
-            (D::Now, D::Now) => Ordering::Equal,
-            (D::Now, _) => Ordering::Greater,
-            (_, D::Now) => Ordering::Less,
-            (date_a, date_b) => date_a.as_tuple().cmp(&date_b.as_tuple()),
-        }
-    }
-}
-
-impl PartialOrd for FlexibleDate {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for FlexibleDate {
-    fn cmp(&self, other: &Self) -> Ordering {
-        self.innner_cmp(other)
-    }
-}
-
-impl TryFrom<String> for FlexibleDate {
-    type Error = String;
-
-    fn try_from(mut value: String) -> Result<Self, Self::Error> {
-        value.retain(|c| !c.is_whitespace());
-        if value.to_lowercase() == "now" {
-            return Ok(FlexibleDate::Now);
-        }
-
-        let parts: Vec<&str> = value.split('-').collect();
-        match parts.len() {
-            1 => Ok(FlexibleDate::Year(
-                parts[0]
-                    .parse::<u16>()
-                    .or(Err(format!("Invalid year {}", parts[0])))?,
-            )),
-            2 => Ok(FlexibleDate::Month(
-                parts[0]
-                    .parse::<u16>()
-                    .or(Err(format!("Invalid year {}", parts[0])))?,
-                parts[1]
-                    .parse::<u8>()
-                    .or(Err(format!("Invalid month {}", parts[1])))?,
-            )),
-            3 => Ok(FlexibleDate::Day(
-                parts[0]
-                    .parse::<u16>()
-                    .or(Err(format!("Invalid year {}", parts[0])))?,
-                parts[1]
-                    .parse::<u8>()
-                    .or(Err(format!("Invalid month {}", parts[1])))?,
-                parts[2]
-                    .parse::<u8>()
-                    .or(Err(format!("Invalid day {}", parts[2])))?,
-            )),
-            _ => Err(format!("Invalid date: {}", value)),
-        }
-    }
-}
-
-impl From<FlexibleDate> for String {
-    fn from(value: FlexibleDate) -> String {
-        match value {
-            FlexibleDate::Now => "Now".to_string(),
-            FlexibleDate::Year(year) => format!("{}", year),
-            FlexibleDate::Month(year, month) => {
-                format!("{} {}", MONTHS[(month - 1) as usize], year)
-            }
-            FlexibleDate::Day(year, month, day) => {
-                format!("{} {} {}", day, MONTHS[(month - 1) as usize], year)
-            }
-        }
-    }
-}
-
-impl JsonSchema for FlexibleDate {
-    fn schema_name() -> String {
-        "FlexibleDate".to_string()
-    }
-
-    fn json_schema(gen: &mut schemars::gen::SchemaGenerator) -> schemars::schema::Schema {
-        use schemars::schema::*;
-        let mut obj = SchemaObject {
-            instance_type: Some(SingleOrVec::Single(InstanceType::String.into())),
-            ..SchemaObject::default()
-        };
-
-        obj.string().pattern = Some(
-            "^((([1-2][0-9]{3}-)?[0-1][0-9]-[0-3][0-9]|[1-2][0-9]{3}-)?[0-1][0-9]|[1-2][0-9]{3})|(now)$"
-                .into(),
-        );
-        let obj = Schema::Object(obj);
-        gen.definitions_mut()
-            .insert("FlexibleDate".into(), obj.clone());
-
-        let or = SchemaObject {
-            reference: Some("#/definitions/FlexibleDate".into()),
-            ..SchemaObject::default()
-        };
-        Schema::Object(or)
-    }
 }
