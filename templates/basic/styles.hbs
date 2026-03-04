@@ -10,7 +10,7 @@ body {
   padding: 0.6rem;
   left: 0;
   top: 0;
-  font-size: 12pt;
+  font-size: 11pt;
 }
 
 * {
@@ -29,23 +29,27 @@ h4 {
   font-weight: 450;
 }
 
-h1 {
-  font-size: 20pt;
+h1,
+.h1 {
+  font-size: 18pt;
   line-height: 120%;
 }
 
-h2 {
-  font-size: 18pt;
+h2,
+.h2 {
+  font-size: 16pt;
   line-height: 100%;
   margin-bottom: 0.4rem;
 }
 
-h3 {
-  font-size: 16pt;
+h3,
+.h3 {
+  font-size: 14pt;
 }
 
-h4 {
-  font-size: 15pt;
+h4,
+.h3 {
+  font-size: 12pt;
 }
 
 a {
@@ -63,7 +67,11 @@ ul {
 .category-outter {
   display: block;
   break-inside: avoid;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+.category-outter > h2:first-of-type {
+  padding-bottom: 0.2rem;
+  border-bottom: solid 2px black;
 }
 
 .category-inner {
